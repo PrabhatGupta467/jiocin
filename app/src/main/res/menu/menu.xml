@@ -7,17 +7,17 @@
     <item
         android:id="@+id/sports"
         android:icon="@drawable/sports"
-        android:title="sports" />
+        android:title="Sports" />
     <item
         android:id="@+id/movies"
         android:icon="@drawable/movies"
-        android:title="movies" />
+        android:title="Movies" />
     <item
         android:id="@+id/tv"
         android:icon="@drawable/tv"
-        android:title="tv" />
+        android:title="Tv" />
     <item
         android:id="@+id/menu"
         android:icon="@drawable/menu"
-        android:title="menu" />
+        android:title="Menu" />
 </menu>

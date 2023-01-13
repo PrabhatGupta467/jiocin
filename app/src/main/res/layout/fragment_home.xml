@@ -26,31 +26,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/black" />
+
                 <com.google.android.material.tabs.TabLayout
-                android:id="@+id/carouselTab"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="10dp"
+                    android:id="@+id/carouselTab"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
+                    app:tabPaddingStart="6dp"
+                    app:tabPaddingEnd="6dp"
                     android:background="@android:color/transparent"
-                app:tabBackground="@drawable/carousel_tab_selector"
-                app:tabGravity="center"
-                app:tabIndicatorHeight="0dp" />
+                    app:tabBackground="@drawable/carousel_tab_selector"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="20dp">
+
                 <TextView
                     android:id="@+id/tv1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
                     android:paddingBottom="8dp"
+                    android:text="Continue Watching"
                     android:textColor="@color/white"
                     android:textSize="15dp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -72,7 +76,7 @@
                     android:id="@+id/tv2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Because You Watched"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -97,7 +101,7 @@
                     android:id="@+id/tv3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="New Movies"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -122,7 +126,7 @@
                     android:id="@+id/tv4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Popular"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -147,7 +151,7 @@
                     android:id="@+id/tv5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Movies For You"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -172,7 +176,7 @@
                     android:id="@+id/tv6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Shows For You"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -197,7 +201,7 @@
                     android:id="@+id/tv7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Regional Favourites"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -222,7 +226,7 @@
                     android:id="@+id/tv8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Highlight of the week"
+                    android:text="Newly Added"
                     android:textColor="@color/white"
                     android:textSize="15dp"
                     android:textStyle="bold"
@@ -235,6 +239,109 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_below="@+id/tv8"
                     android:id="@+id/recycler8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tv9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genre Rail"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tv9"
+                    android:id="@+id/recycler9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tv10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Language Rail"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tv10"
+                    android:id="@+id/recycler10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tv11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Default"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tv11"
+                    android:id="@+id/recycler11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tv12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seed Item Based"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tv12"
+                    android:id="@+id/recycler12"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>

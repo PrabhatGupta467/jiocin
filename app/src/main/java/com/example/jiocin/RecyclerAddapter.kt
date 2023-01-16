@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 
 class RecyclerAddapter( val context : Context, val arrContact : ArrayList<ContactModel>) : RecyclerView.Adapter<RecyclerAddapter.ViewHolder>() {
@@ -26,11 +27,12 @@ class RecyclerAddapter( val context : Context, val arrContact : ArrayList<Contac
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val temp : ContactModel=arrContact.get(position)
-
-       holder.image.setImageResource(arrContact[position].image)
+        //val temp : ContactModel=arrContact.get(position)
+        Glide.with(context).load(arrContact[position].image).into(holder.image)
+        //holder.image.setImageResource(arrContact[position].image)
         holder.image.setOnClickListener {
-       }
+            
+        }
 
     }
 

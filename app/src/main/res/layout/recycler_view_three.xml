@@ -11,21 +11,10 @@
         app:cardCornerRadius="10dp"
         android:layout_height="match_parent">
         <ImageView
-                android:id="@+id/imgV"
-                android:layout_width="match_parent"
-                android:scaleType="fitXY"
-                android:layout_height="match_parent"/>
-        <TextView
-            android:id="@+id/tv"
+            android:id="@+id/imgVieww"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:textColor="@color/white"
-            android:textSize="12dp"
-            android:textStyle="bold"
-            android:paddingLeft="5dp"
-            android:layout_marginBottom="4dp"
-            android:layout_gravity="bottom"
-            />
+            android:scaleType="fitXY"
+            android:layout_height="match_parent"/>
     </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

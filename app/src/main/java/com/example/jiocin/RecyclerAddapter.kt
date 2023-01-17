@@ -17,7 +17,7 @@ class RecyclerAddapter( val context : Context, val arrContact : ArrayList<Contac
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
       val image: ImageView = itemView.findViewById(R.id.imgV)
-
+      val dec:TextView=itemView.findViewById(R.id.tv)
 
     }
 
@@ -29,9 +29,10 @@ class RecyclerAddapter( val context : Context, val arrContact : ArrayList<Contac
 
         //val temp : ContactModel=arrContact.get(position)
         Glide.with(context).load(arrContact[position].image).into(holder.image)
+        holder.dec.text=arrContact[position].dec
         //holder.image.setImageResource(arrContact[position].image)
         holder.image.setOnClickListener {
-            
+
         }
 
     }

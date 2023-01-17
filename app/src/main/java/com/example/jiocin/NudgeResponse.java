@@ -11,13 +11,22 @@ import java.nio.charset.StandardCharsets;
 
 public class NudgeResponse implements Runnable {
     private volatile String resp;
-    String myUrl="https://pp-api-raasgw.jio.com/v2/fetchdetails/";
+    //String myUrl="https://pp-api-raasgw.jio.com/v2/fetchdetails/";
+    String myUrl;
+    String jsonBody;
     String ACCESS_TOKEN;
+    public NudgeResponse(String Token,String myUrl, String jsonBody){
+        this.ACCESS_TOKEN=Token;
+        this.myUrl=myUrl;
+        this.jsonBody=jsonBody;
+    }
+
+
     @Override
     public void run() {
         try {
             TokenGenerater tokenGenerater=new TokenGenerater();
-            ACCESS_TOKEN=tokenGenerater.generateToken();
+            //ACCESS_TOKEN=tokenGenerater.generateToken();
             Log.e("token",ACCESS_TOKEN);
             URL url = new URL(myUrl);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -27,9 +36,9 @@ public class NudgeResponse implements Runnable {
             conn.setRequestProperty("Authorization", ACCESS_TOKEN);
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            String json="{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}";
+            //String json="{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}";
             DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-            os.writeBytes(json);
+            os.writeBytes(jsonBody);
             os.flush();
             os.close();
             Log.e("STATUS", String.valueOf(conn.getResponseCode()));

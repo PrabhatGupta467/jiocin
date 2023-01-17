@@ -7,11 +7,9 @@
     android:background="@color/black"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,7 +23,8 @@
                     android:id="@+id/carouselViewPager"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/black" />
+                    android:background="@color/black" >
+                </androidx.viewpager.widget.ViewPager>
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/carouselTab"
@@ -39,6 +38,21 @@
                     app:tabBackground="@drawable/carousel_tab_selector"
                     app:tabGravity="center"
                     app:tabIndicatorHeight="0dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Watch"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="60dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:background="@drawable/background"/>
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -61,10 +75,11 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@+id/tv1"
                     android:id="@+id/recycler1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv1"/>
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -86,11 +101,12 @@
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@+id/tv2"
                     android:id="@+id/recycler2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv2" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -111,11 +127,16 @@
                     android:layout_height="15dp"
                     android:layout_alignParentRight="true"
                     android:src="@drawable/ic_baseline_arrow_forward_ios_24"/>
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:layout_below="@+id/tv3"
+                    android:paddingLeft="20dp"
+                    android:paddingBottom="25dp"
+                    android:paddingTop="25dp"
                     android:id="@+id/recycler3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv3"
+                    android:background="@drawable/img_3" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -147,15 +168,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:paddingBottom="20dp">
+
                 <TextView
                     android:id="@+id/tv5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
                     android:text="Movies For You"
                     android:textColor="@color/white"
                     android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:paddingBottom="8dp"/>
+                    android:textStyle="bold" />
                 <ImageView
                     android:layout_width="15dp"
                     android:layout_height="15dp"
@@ -167,6 +189,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tvExplore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:text="Explore More"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tvExplore"
+                    android:id="@+id/recyclerExplore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -269,6 +314,26 @@
                     android:layout_height="wrap_content" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:id="@+id/tvx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="checking"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="8dp"/>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@+id/tvx"
+                    android:id="@+id/recyclerx"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

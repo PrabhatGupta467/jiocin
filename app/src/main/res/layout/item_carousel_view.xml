@@ -9,6 +9,13 @@
         android:id="@+id/carouselImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
+        android:scaleType="fitXY" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/back"
+        android:alpha="0.9"
+        android:scaleType="fitXY" />
 
 </RelativeLayout>

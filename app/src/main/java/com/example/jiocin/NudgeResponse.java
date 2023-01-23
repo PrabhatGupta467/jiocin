@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-public class NudgeResponse implements Runnable {
+public class NudgeResponse {
     private volatile String resp;
     //String myUrl="https://pp-api-raasgw.jio.com/v2/fetchdetails/";
     String myUrl;
@@ -22,10 +22,9 @@ public class NudgeResponse implements Runnable {
     }
 
 
-    @Override
-    public void run() {
+    public String gettingResponse(){
         try {
-            TokenGenerater tokenGenerater=new TokenGenerater();
+            //TokenGenerater tokenGenerater=new TokenGenerater();
             //ACCESS_TOKEN=tokenGenerater.generateToken();
             Log.e("token",ACCESS_TOKEN);
             URL url = new URL(myUrl);
@@ -39,6 +38,7 @@ public class NudgeResponse implements Runnable {
             //String json="{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}";
             DataOutputStream os = new DataOutputStream(conn.getOutputStream());
             os.writeBytes(jsonBody);
+            Log.e("jsonBody",jsonBody);
             os.flush();
             os.close();
             Log.e("STATUS", String.valueOf(conn.getResponseCode()));
@@ -59,8 +59,7 @@ public class NudgeResponse implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return  resp;
     }
-    public String  getValue() {
-        return resp;
-    }
+
 }

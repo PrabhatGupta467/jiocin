@@ -1,16 +1,20 @@
 package com.example.jiocin
 
+import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.widget.ImageView
-import android.widget.PopupMenu
-import android.widget.TextView
-import android.widget.Toast
+import android.view.MotionEvent
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
+import android.widget.*
 import androidx.fragment.app.Fragment
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.jio.jioads.instreamads.vastparser.model.j
+
 import org.json.JSONArray
 import org.json.JSONObject
 import java.lang.Exception
@@ -18,19 +22,35 @@ import java.lang.Exception
 class MainActivity : AppCompatActivity() {
 
     lateinit var bottomNav : BottomNavigationView
+    private lateinit var searchBar:LinearLayout
+    private lateinit var hideOrShow:FrameLayout
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val window: Window = window
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = Color.BLACK
+            window.navigationBarColor=Color.BLACK
+        }
+
+
+//        val container: ShimmerFrameLayout = findViewById(R.id.container)
+//        container.hideShimmer()
+
+
+
         loadFragment(HomeFragment())
         bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
-
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.home -> {
                     loadFragment(HomeFragment())
+
                     true
                 }
                 R.id.sports -> {
@@ -53,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        val nudgeRespone:NudgeResponse  = NudgeResponse()
+//        val nudgeRespone:NudgeResponse  = NudgeResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTdWJJRCI6IjEyMzQ1Njc4OTAiLCJFeHBpcmUiOjI2NzMyNDI5NDJ9.UvfkNy7uVvn0U8t3WjEUP-jEXk2GfGCkVvRg4TcWLJ0","https://dummy.restapiexample.com/api/v1/create","\t{\"name\":\"test\",\"salary\":\"123\",\"age\":\"23\"}")
 //        val thread:Thread =  Thread(nudgeRespone)
 //        thread.start()
 //        thread.join()
@@ -73,6 +93,24 @@ class MainActivity : AppCompatActivity() {
 //            Log.e("RecommType", jsonObject5.optInt("RecommType").toString())
 //            Log.e("Recommendation",jsonObject5.optString("Recommendation"))
 //        }
+
+//        searchBar=findViewById(R.id.searchBar)
+//        hideOrShow=findViewById(R.id.container)
+//
+//        hideOrShow.setOnTouchListener(object :View.OnTouchListener{
+//            override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
+//                TODO("Not yet implemented")
+//                if(p1?.action==MotionEvent.ACTION_DOWN){
+//                   searchBar.visibility=View.VISIBLE
+//                }
+//                if(p1?.action==MotionEvent.ACTION_UP){
+//                    searchBar.visibility=View.GONE
+//                }
+//            }
+//        })
+
+
+
     }
     private  fun loadFragment(fragment: Fragment){
         val transaction = supportFragmentManager.beginTransaction()

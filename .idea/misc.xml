@@ -4,27 +4,45 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/background.xml" value="0.1095" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/basketball.xml" value="0.1055" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/carousel_default_dot.xml" value="0.1005" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/carousel_selected_dot.xml" value="0.1005" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/carousel_tab_selector.xml" value="0.1005" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/colorselector.xml" value="0.1" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/cricket.xml" value="0.1055" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/download.xml" value="0.109" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/footbaall.xml" value="0.1055" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/home.xml" value="0.1445" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.13" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/kabaddi.xml" value="0.1055" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/line.xml" value="0.1" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/menu.xml" value="0.1445" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/movies.xml" value="0.1445" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/outline.xml" value="0.113" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/outlinetwo.xml" value="0.109" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/playlist.xml" value="0.109" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/progress_bg.xml" value="0.113" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/round.xml" value="0.1" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/selecter.xml" value="0.113" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/share.xml" value="0.109" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/sports.xml" value="0.1445" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/tennis.xml" value="0.1055" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/drawable/tv.xml" value="0.1445" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/activity_main.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_home.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/activity_more_like_vertical.xml" value="0.1796875" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/activity_more_likes.xml" value="0.1796875" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/activity_splash.xml" value="0.1796875" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_menu.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_movies.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_sports.xml" value="0.165625" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/fragment_tv.xml" value="0.165625" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/item_carousel_view.xml" value="0.14666666666666667" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_horizontal.xml" value="0.1796875" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_vertical.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_view.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_view_explore.xml" value="0.17864583333333334" />
+        <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_view_four.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_view_three.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/layout/recycler_view_two.xml" value="0.1796875" />
         <entry key="..\:/Users/prabhat1.gupta/AndroidStudioProjects/JioCin/app/src/main/res/menu/menu.xml" value="0.1" />

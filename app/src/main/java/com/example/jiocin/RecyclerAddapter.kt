@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
 
-class RecyclerAddapter( val context : Context, val arrContact : ArrayList<ContactModel>) : RecyclerView.Adapter<RecyclerAddapter.ViewHolder>() {
+class RecyclerAddapter(val context: Context, val arrContact: ArrayList<ContactModel>) : RecyclerView.Adapter<RecyclerAddapter.ViewHolder>() {
 
 
 
@@ -32,7 +33,8 @@ class RecyclerAddapter( val context : Context, val arrContact : ArrayList<Contac
         holder.dec.text=arrContact[position].dec
         //holder.image.setImageResource(arrContact[position].image)
         holder.image.setOnClickListener {
-
+            val intent=Intent(context,MoreLikesHorizontal::class.java)
+            startActivity(context,intent,null)
         }
 
     }

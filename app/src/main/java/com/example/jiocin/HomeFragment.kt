@@ -6,20 +6,46 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.json.JSONArray
 import org.json.JSONObject
 
-
+//val nudgeRespone:NudgeResponse  = NudgeResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTdWJJRCI6IjEyMzQ1Njc4OTAiLCJFeHBpcmUiOjI2NzMyNDI5NDJ9.UvfkNy7uVvn0U8t3WjEUP-jEXk2GfGCkVvRg4TcWLJ0","https://pp-api-raasgw.jio.com/v2/fetchdetails/","{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}")
+//val thread:Thread =  Thread(nudgeRespone)
+//thread.start()
+//thread.join()
+//val res:String = nudgeRespone.value
+//Log.e("result",res)
+//if(!TextUtils.isEmpty(res)){
+//    val jsonObject: JSONObject = JSONObject(res)
+//    val jsonObject1: JSONObject =jsonObject.optJSONObject("responseBuffer")
+//    val jsonObject2: JSONObject =jsonObject1.optJSONObject("body")
+//    val jsonArray: JSONArray =jsonObject2.optJSONArray("RecommendationDetails")
+//    val jsonObject3: JSONObject =jsonArray.optJSONObject(0)
+//    val jsonArray1: JSONArray =jsonObject3.optJSONArray("svcDetails")
+//    val jsonObject4: JSONObject =jsonArray1.optJSONObject(0)
+//    val jsonArray2: JSONArray =jsonObject4.optJSONArray("svcData")
+//    val jsonObject5: JSONObject =jsonArray2.optJSONObject(0)
+//    Log.e("subscriberid",jsonObject5.optString("subscriberid"))
+//    Log.e("RecommType", jsonObject5.optInt("RecommType").toString())
+//    Log.e("Recommendation",jsonObject5.optString("Recommendation"))
+//}
 class HomeFragment : Fragment() {
-    private lateinit var payload:String
+    private lateinit var nudgeRespone:NudgeResponse
+    private lateinit var nudgeResponeTwo:NudgeResponse
+    private  var payload:String?=""
+    private  var payloadTwo:String?=""
     private lateinit var arrContact:ArrayList<ContactModel>
     private lateinit var arrContactTwo:ArrayList<ModelTwo>
     private lateinit var arrContactThree:ArrayList<ModelThree>
+    private lateinit var arrContactFour:ArrayList<ModelFour>
     private lateinit var arrContactExplore:ArrayList<ModelExplore>
     private lateinit var recyclerView1: RecyclerView
     private lateinit var recyclerView2: RecyclerView
@@ -34,6 +60,9 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView11: RecyclerView
     private lateinit var recyclerView12: RecyclerView
     private lateinit var recyclerViewExplore: RecyclerView
+    private lateinit var recyclerViewKeyTour: RecyclerView
+    private lateinit var searchBar: LinearLayout
+    private lateinit var hideOrShow: ScrollView
 
     var viewPager: ViewPager? = null
     private var recommendation:HashMap<Int,Int>?=HashMap<Int, Int> ()
@@ -43,53 +72,79 @@ class HomeFragment : Fragment() {
     var carouselViewPagerAdapter: CarouselViewPagerAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        payload="[ { \"svcDetails\": [ { \"DeviceType\": \"SMARTPHONE\", \"ServiceID\": 1, \"svcData\": [ { \"subscriberid\": \"1234567890\", \"RecommType\": 601, \"Recommendation\": [ { \"media_id\": \"b6304f3e036952e799bdeaf7f89c16e1\", \"thumbnail\": \"https://i.redd.it/6nfr6i4upjca1.jpg\", \"title\": \"Nenu Naa Rakshasi\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"fbbd3f3924ed56e5b2fd35c10b7b6b19\", \"thumbnail\": \"https://i.redd.it/9tdncqarhica1.gif\", \"title\": \"Savyasachi\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 602, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://i.redd.it/6nfr6i4upjca1.jpg\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 603, \"Recommendation\": [ { \"based_on\": \"MOVIE/SHOW Based on\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"based_on\": \"MOVIE/SHOW Based on\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 604, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 605, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 606, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 607, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 608, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 609, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 610, \"Recommendation\": [ { \"rank\": \"1\", \"genre\": \"Romantic\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"rank\": \"1\", \"genre\": \"Action\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 611, \"Recommendation\": [ { \"rank\": \"1\", \"language\": \"Telgu\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\" }, { \"rank\": \"1\", \"language\": \"Tamil\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\" } ] }, { \"RecommType\": 612, \"Recommendation\": [ { \"rank\": \"1\", \"media_id\": \"e3844a93171c500e8669b51d0ea12cb5\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Greenland\", \"description\": \"this movie is based on ......\" }, { \"rank\": \"20\", \"media_id\": \"92fd25a0b4ca11ec8ec6653f060ba240\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Dasvi\", \"description\": \"this movie is based on ......\" } ] }, { \"RecommType\": 613, \"Recommendation\": [ { \"rank\": \"1\", \"media_id\": \"92fd25a0b4ca11ec8ec6653f060ba240\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Dasvi\", \"description\": \"this movie is based on ......\" }, { \"rank\": \"20\", \"media_id\": \"28693604aedf506db3cccb6eaac837c5\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"83\", \"description\": \"this movie is based on ......\" } ] } ] } ] } ]"
+
+
+        nudgeRespone= NudgeResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTdWJJRCI6IjEyMzQ1Njc4OTAiLCJFeHBpcmUiOjI2NzMyNDI5NDJ9.UvfkNy7uVvn0U8t3WjEUP-jEXk2GfGCkVvRg4TcWLJ0","https://pp-api-raasgw.jio.com/v2/fetchdetails/","{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}")
+        nudgeResponeTwo= NudgeResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTdWJJRCI6IjEyMzQ1Njc4OTAiLCJFeHBpcmUiOjI2NzMyNDI5NDJ9.UvfkNy7uVvn0U8t3WjEUP-jEXk2GfGCkVvRg4TcWLJ0","https://pp-api-raasgw.jio.com/v2/fetchdetails/","{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}")
+
+        //payload="{ \"status\": \"success\", \"AppType\": 1, \"responseBuffer\": { \"statuscode\": \"200\", \"result\": \"success\", \"request_type\": 4, \"body\": { \"RecommendationDetails\": [ { \"svcDetails\": [ { \"DeviceType\": \"SMARTPHONE\", \"ServiceID\": 1, \"svcData\": [ { \"subscriberid\": \"1234567890\", \"RecommType\": 601, \"Recommendation\": [ { \"media_id\": \"b6304f3e036952e799bdeaf7f89c16e1\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Nenu Naa Rakshasi\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"fbbd3f3924ed56e5b2fd35c10b7b6b19\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Savyasachi\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 602, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 603, \"Recommendation\": [ { \"based_on\": \"MOVIE/SHOW Based on\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"based_on\": \"MOVIE/SHOW Based on\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 604, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 605, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 606, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 607, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 608, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 609, \"Recommendation\": [ { \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 610, \"Recommendation\": [ { \"rank\": \"1\", \"genre\": \"Romantic\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"rank\": \"1\", \"genre\": \"Action\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"subscriberid\": \"1234567890\", \"RecommType\": 611, \"Recommendation\": [ { \"rank\": \"1\", \"language\": \"Telgu\", \"media_id\": \"b7968650914f11e9b12279bd2b689533\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Roja Puthu Roja\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"rank\": \"1\", \"language\": \"Tamil\", \"media_id\": \"2beb7e7878075583b2de4378aeed6e0e\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Love in Simla\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] }, { \"RecommType\": 612, \"Recommendation\": [ { \"rank\": \"1\", \"media_id\": \"e3844a93171c500e8669b51d0ea12cb5\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Greenland\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"rank\": \"20\", \"media_id\": \"92fd25a0b4ca11ec8ec6653f060ba240\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Dasvi\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] } ] } ] } ] } } }"
+       // payloadTwo="[ { \"svcDetails\": [ { \"DeviceType\": \"SMARTPHONE\", \"ServiceID\": 1, \"svcData\": [ { \"RecommType\": 613, \"Recommendation\": [ { \"rank\": \"1\", \"media_id\": \"92fd25a0b4ca11ec8ec6653f060ba240\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"Dasvi\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" }, { \"rank\": \"20\", \"media_id\": \"28693604aedf506db3cccb6eaac837c5\", \"thumbnail\": \"https://picsum.photos/200/300\", \"title\": \"83\", \"description\": \"this movie is based on ......\", \"release_date\": \"2022-10-20\" } ] } ] } ] } ]"
         // Inflate the layout for this fragment
-        var view:View=inflater.inflate(R.layout.fragment_home, container, false)
-
-        val nudgeRespone:NudgeResponse  = NudgeResponse("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTdWJJRCI6IjEyMzQ1Njc4OTAiLCJFeHBpcmUiOjI2NzMyNDI5NDJ9.UvfkNy7uVvn0U8t3WjEUP-jEXk2GfGCkVvRg4TcWLJ0","https://pp-api-raasgw.jio.com/v2/fetchdetails/","{\"buffer_type\":\"Request\", \"AppType\":4, \"buffer\":{ \"request_type\":4,\"Body\":{ \"ServiceInfo\":[{ \"DeviceType\":\"STB\", \"ServiceID\":1, \"Subscriberdetails\":[{ \"SubscriberId\":\"1000051032\", \"Personalized\":{ \"RecommType\":1}}]}]}}}")
-        val thread:Thread =  Thread(nudgeRespone)
-        thread.start()
-        thread.join()
-        val res:String = nudgeRespone.value
-        Log.e("result",res)
-        if(!TextUtils.isEmpty(res)){
-            val jsonObject: JSONObject = JSONObject(res)
-            val jsonObject1: JSONObject =jsonObject.optJSONObject("responseBuffer")
-            val jsonObject2: JSONObject =jsonObject1.optJSONObject("body")
-            val jsonArray: JSONArray =jsonObject2.optJSONArray("RecommendationDetails")
-            val jsonObject3: JSONObject =jsonArray.optJSONObject(0)
-            val jsonArray1: JSONArray =jsonObject3.optJSONArray("svcDetails")
-            val jsonObject4: JSONObject =jsonArray1.optJSONObject(0)
-            val jsonArray2: JSONArray =jsonObject4.optJSONArray("svcData")
-            val jsonObject5: JSONObject =jsonArray2.optJSONObject(0)
-            Log.e("subscriberid",jsonObject5.optString("subscriberid"))
-            Log.e("RecommType", jsonObject5.optInt("RecommType").toString())
-            Log.e("Recommendation",jsonObject5.optString("Recommendation"))
-        }
-
-        for(i in 0 until 13){
+        val view:View=inflater.inflate(R.layout.fragment_home, container, false)
+//        searchBar=view.findViewById(R.id.searchBar)
+//        hideOrShow=view.findViewById(R.id.container)
+//        val hos:HideOrShow=HideOrShow(searchBar,hideOrShow)
+ //       hos.hideOrShow()
+        for(i in 0 until 12){
             recommendation?.put(recommendationKey, recommendationValue)
             recommendationKey++
             recommendationValue++
         }
+      GlobalScope.launch{
+          payload=getNudgeResponse(nudgeRespone)
+          Log.e("payload",payload!!)
+      }
+      // payload=getNudgeResponse(nudgeRespone)
+       //payloadTwo=getNudgeResponse(nudgeResponeTwo)
+//        val jioNudgeResponse=JioNudgeResponse()
+//        jioNudgeResponse.getResponse(context)
 
-        carouselPart(view)
-        set602(view)
-        set603(view)
-        set604(view)
-        set605(view)
-        set606(view)
-        setExplore(view)
-        set607(view)
-        set608(view)
-        set609(view)
-        set610(view)
-        set611(view)
-        set612(view)
-        set613(view)
-        
+        //Log.e("payload",payload!!)
+        //Log.e("payloadTwo",payloadTwo!!)
+
+        //carouselPart(view)
+        //set602(view)
+        //set603(view)
+        //set604(view)
+        //set605(view)
+        //set606(view)
+        //setExplore(view)
+        //set607(view)
+        //set608(view)
+        //set609(view)
+        //set610(view)
+        //setKeyTournaments(view)
+        //set611(view)
+        //set612(view)
+        //set613(view)
+
         return view
+    }
+
+    suspend fun getNudgeResponse(nudgeRespone: NudgeResponse):String {
+//        val thread:Thread =  Thread(nudgeRespone)
+//        thread.start()
+//        thread.join()
+//        return if(!TextUtils.isEmpty(nudgeRespone.value)){
+//            nudgeRespone.value
+//        }else{
+//            ""
+//        }
+        return  nudgeRespone.gettingResponse()
+    }
+
+    private fun setKeyTournaments(view: View) {
+        arrContactExplore=ArrayList()
+        recyclerViewKeyTour=view.findViewById(R.id.recyclerx)
+        recyclerViewKeyTour.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+        arrContactExplore.add(ModelExplore(R.drawable.ipl))
+        arrContactExplore.add(ModelExplore(R.drawable.saas))
+        arrContactExplore.add(ModelExplore(R.drawable.nba))
+        arrContactExplore.add(ModelExplore(R.drawable.bwf))
+        arrContactExplore.add(ModelExplore(R.drawable.laliga))
+        arrContactExplore.add(ModelExplore(R.drawable.fifa))
+        val recycler = RecyclerAdapterExplore(view.context,arrContactExplore)
+        recyclerViewKeyTour.adapter=recycler
     }
 
     private fun setExplore(view: View) {
@@ -107,138 +162,241 @@ class HomeFragment : Fragment() {
     }
 
     private fun set611(view: View) {
+        arrContactFour=ArrayList()
+        recyclerView10=view.findViewById(R.id.recycler10)
+        val set611:JSONArray=jsonParser(611)
+if(set611!=null){
+    recyclerView10.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+    for(i in 0 until set611.length()){
+        arrContactFour.add(ModelFour(set611.optJSONObject(i).optString("thumbnail"),set611.optJSONObject(i).optString("language")))
+    }
+    val recycler = RecyclerAdapterFour(view.context,arrContactFour)
+    recyclerView10.adapter=recycler
+
+}
 
     }
 
     private fun set610(view: View) {
-        arrContactTwo=ArrayList()
+        arrContactFour=ArrayList()
         recyclerView9=view.findViewById(R.id.recycler9)
-        recyclerView9.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(610)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactTwo.add(ModelTwo(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set610:JSONArray=jsonParser(610)
+        if(set610!=null){
+            recyclerView9.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set610.length()){
+                arrContactFour.add(ModelFour(set610.optJSONObject(i).optString("thumbnail"),set610.optJSONObject(i).optString("genre")))
+            }
+            val recycler = RecyclerAdapterFour(view.context,arrContactFour)
+            recyclerView9.adapter=recycler
 
         }
-        val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
-        recyclerView9.adapter=recycler
+
     }
 
     private fun set613(view: View) {
+        arrContact=ArrayList()
+        recyclerView12=view.findViewById(R.id.recycler12)
+        val set613:JSONArray=jsonParserTwo()
+        if(set613!=null){
+            recyclerView12.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set613.length()){
+                arrContact.add(ContactModel(set613.optJSONObject(i).optString("thumbnail"),set613.optJSONObject(i).optString("description")))
+            }
+            val recycler = RecyclerAddapter(view.context,arrContact)
+            recyclerView12.adapter=recycler
+        }
+
 
     }
 
     private fun set612(view: View) {
+        arrContactThree=ArrayList()
+        recyclerView11=view.findViewById(R.id.recycler11)
+        val set612:JSONArray=jsonParser(612)
+        if(set612!=null){
+            recyclerView11.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set612.length()){
+                arrContactThree.add(ModelThree(set612.optJSONObject(i).optString("thumbnail")))
+            }
+            val recycler = RecyclerAdapterThree(view.context,arrContactThree)
+            recyclerView11.adapter=recycler
+        }
 
     }
 
     private fun set609(view: View) {
         arrContactTwo=ArrayList()
         recyclerView8=view.findViewById(R.id.recycler8)
-        recyclerView8.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(609)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactTwo.add(ModelTwo(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set609:JSONArray=jsonParser(609)
+        if(set609!=null){
 
+            recyclerView8.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set609.length()){
+                arrContactTwo.add(ModelTwo(set609.optJSONObject(i).optString("thumbnail")))
+
+            }
+            val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
+            recyclerView8.adapter=recycler
         }
-        val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
-        recyclerView8.adapter=recycler
+
     }
 
     private fun set608(view: View) {
         arrContactThree=ArrayList()
         recyclerView7=view.findViewById(R.id.recycler7)
-        recyclerView7.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(607)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactThree.add(ModelThree(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set608:JSONArray=jsonParser(607)
+        if(set608!=null){
+            recyclerView7.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set608.length()){
+                arrContactThree.add(ModelThree(set608.optJSONObject(i).optString("thumbnail")))
+            }
+            val recycler = RecyclerAdapterThree(view.context,arrContactThree)
+            recyclerView7.adapter=recycler
         }
-        val recycler = RecyclerAdapterThree(view.context,arrContactThree)
-        recyclerView7.adapter=recycler
+
     }
 
     private fun set607(view: View) {
         arrContact=ArrayList()
         recyclerView6=view.findViewById(R.id.recycler6)
-        recyclerView6.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(607)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContact.add(ContactModel(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail"),jsonArrayForContinueWatching.getJSONObject(i).getString("description")))
+        val set607:JSONArray=jsonParser(607)
+        if(set607!=null){
+            recyclerView6.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+
+            for(i in 0 until set607.length()){
+                arrContact.add(ContactModel(set607.optJSONObject(i).optString("thumbnail"),set607.optJSONObject(i).optString("description")))
+            }
+            val recycler = RecyclerAddapter(view.context,arrContact)
+            recyclerView6.adapter=recycler
+
         }
-        val recycler = RecyclerAddapter(view.context,arrContact)
-        recyclerView6.adapter=recycler
+
     }
 
     private fun set606(view: View) {
         arrContactTwo=ArrayList()
         recyclerView5=view.findViewById(R.id.recycler5)
-        recyclerView5.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(606)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactTwo.add(ModelTwo(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set606:JSONArray=jsonParser(606)
+        if(set606!=null){
+            recyclerView5.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
 
+            for(i in 0 until set606.length()){
+                arrContactTwo.add(ModelTwo(set606.optJSONObject(i).optString("thumbnail")))
+
+            }
+            val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
+            recyclerView5.adapter=recycler
         }
-        val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
-        recyclerView5.adapter=recycler
+
     }
 
     private fun set605(view: View) {
         arrContactTwo=ArrayList()
         recyclerView4=view.findViewById(R.id.recycler4)
-        recyclerView4.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(605)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactTwo.add(ModelTwo(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set605:JSONArray=jsonParser(605)
+        if(set605!=null){
+            recyclerView4.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
 
+            for(i in 0 until set605.length()){
+                arrContactTwo.add(ModelTwo(set605.optJSONObject(i).optString("thumbnail")))
+
+            }
+            val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
+            recyclerView4.adapter=recycler
         }
-        val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
-        recyclerView4.adapter=recycler
+
     }
 
     private fun set604(view: View) {
         arrContactTwo=ArrayList()
         recyclerView3=view.findViewById(R.id.recycler3)
-        recyclerView3.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(604)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContactTwo.add(ModelTwo(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail")))
+        val set604:JSONArray=jsonParser(604)
+        if(set604!=null){
+            recyclerView3.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
 
+            for(i in 0 until set604.length()){
+                arrContactTwo.add(ModelTwo(set604.optJSONObject(i).optString("thumbnail")))
+
+            }
+            val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
+            recyclerView3.adapter=recycler
         }
-        val recycler = RecyclerAdapterTwo(view.context,arrContactTwo)
-        recyclerView3.adapter=recycler
+
     }
 
     private fun set603(view: View) {
         arrContact=ArrayList()
         recyclerView2=view.findViewById(R.id.recycler2)
-        recyclerView2.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(603)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContact.add(ContactModel(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail"),jsonArrayForContinueWatching.getJSONObject(i).getString("description")))
+        val textView:TextView=view.findViewById(R.id.tv2)
+        val set603:JSONArray=jsonParser(603)
+        if(set603!=null){
+            recyclerView2.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+            textView.text="Because You Watched ${set603.getJSONObject(0).getString("based_on")}"
+            for(i in 0 until set603.length()){
+                arrContact.add(ContactModel(set603.optJSONObject(i).optString("thumbnail"),set603.optJSONObject(i).optString("description")))
+            }
+            val recycler = RecyclerAddapter(view.context,arrContact)
+            recyclerView2.adapter=recycler
         }
-        val recycler = RecyclerAddapter(view.context,arrContact)
-        recyclerView2.adapter=recycler
+
     }
 
     private fun set602(view: View) {
         arrContact=ArrayList()
+        val set602:JSONArray=jsonParser(602)
         recyclerView1=view.findViewById(R.id.recycler1)
-        recyclerView1.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
-        val jsonArrayForContinueWatching:JSONArray=jsonParser(602)
-        for(i in 0 until jsonArrayForContinueWatching.length()){
-            arrContact.add(ContactModel(jsonArrayForContinueWatching.getJSONObject(i).getString("thumbnail"),jsonArrayForContinueWatching.getJSONObject(i).getString("description")))
+        if(set602!=null){
+            recyclerView1.layoutManager= LinearLayoutManager(view.context, LinearLayoutManager.HORIZONTAL,false) //setting layout manager...
+            for(i in 0 until set602.length()){
+                arrContact.add(ContactModel(set602.optJSONObject(i).optString("thumbnail"),set602.optJSONObject(i).optString("description")))
+            }
+            val recycler = RecyclerAddapter(view.context,arrContact)
+            recyclerView1.adapter=recycler
         }
-        val recycler = RecyclerAddapter(view.context,arrContact)
-        recyclerView1.adapter=recycler
     }
 
     private fun jsonParser(recommendationType: Int): JSONArray {
-        val jsonArray: JSONArray = JSONArray(payload)
-        val jsonObject: JSONObject = jsonArray.getJSONObject(0)
-        val jsonArray1: JSONArray = jsonObject.getJSONArray("svcDetails")
-        val jsonObject1: JSONObject = jsonArray1.getJSONObject(0)
-        val jsonArray2: JSONArray = jsonObject1.getJSONArray("svcData")
-        val jsonObject2: JSONObject = jsonArray2.getJSONObject(recommendation?.get(recommendationType)!!)
-        return jsonObject2.getJSONArray("Recommendation")
+///////////////////////////////////
+           val jsonObjectNew:JSONObject= JSONObject(payload)
+           val jsonObjectNew2:JSONObject=jsonObjectNew.optJSONObject("responseBuffer")
+           val jsonObjectNew3:JSONObject=jsonObjectNew2.optJSONObject("body")
+           val jsonArray:JSONArray=jsonObjectNew3.optJSONArray("RecommendationDetails")
+///////////////////////////////////
+
+
+            //val jsonArray: JSONArray = JSONArray(payload)
+            val jsonObject: JSONObject = jsonArray.optJSONObject(0)
+            val jsonArray1: JSONArray = jsonObject.optJSONArray("svcDetails")
+            val jsonObject1: JSONObject = jsonArray1.optJSONObject(0)
+            val jsonArray2: JSONArray = jsonObject1.optJSONArray("svcData")
+            val jsonObject2: JSONObject = jsonArray2.optJSONObject(recommendation?.get(recommendationType)!!)
+            return jsonObject2.optJSONArray("Recommendation")
+
+    }
+
+    private  fun jsonParserTwo():JSONArray{
+//////////////////////////////
+//        val jsonObjectNewTwo:JSONObject= JSONObject(payload)
+//        val jsonObjectNewTwo2:JSONObject=jsonObjectNewTwo.optJSONObject("responseBuffer")
+//        val jsonObjectNewTwo3:JSONObject=jsonObjectNewTwo2.optJSONObject("body")
+//        val jsonArrayTwo:JSONArray=jsonObjectNewTwo3.optJSONArray("RecommendationDetails")
+/////////////////////////////
+
+
+
+        val jsonArrayTwo:JSONArray=JSONArray(payloadTwo)
+        val jsonObjectTwo:JSONObject=jsonArrayTwo.optJSONObject(0)
+        val jsonArrayTwo1:JSONArray=jsonObjectTwo.optJSONArray("svcDetails")
+        val jsonObjectTwo1:JSONObject=jsonArrayTwo1.optJSONObject(0)
+        val jsonArrayTwo2:JSONArray=jsonObjectTwo1.optJSONArray("svcData")
+        val jsonObjectTwo3:JSONObject=jsonArrayTwo2.optJSONObject(0)
+        //Log.e("recommendation type",jsonObjectTwo3.optString("RecommType"))
+        return jsonObjectTwo3.optJSONArray("Recommendation")
     }
 
     private fun carouselPart(view: View) {
@@ -246,20 +404,19 @@ class HomeFragment : Fragment() {
         val carouselTab: TabLayout = view.findViewById<TabLayout>(R.id.carouselTab)
         carouselTab.setupWithViewPager(viewPager, true)
         val jsonArrayForBanner:JSONArray=jsonParser(601)
-        for(i in 0 until jsonArrayForBanner.length()){
-            val media=Media()
-            media.mediaUrl=jsonArrayForBanner.getJSONObject(i).getString("thumbnail")
-            list.add(media)
-        }
-        if (list != null) {
-            carouselViewPagerAdapter = CarouselViewPagerAdapter(view.context, list)
-            viewPager?.adapter = carouselViewPagerAdapter
-        } else {
-         Log.e("Carousel","no media file")
+        if(jsonArrayForBanner!=null){
+            for(i in 0 until jsonArrayForBanner.length()){
+                val media=Media()
+                media.mediaUrl=jsonArrayForBanner.optJSONObject(i).optString("thumbnail")
+                list.add(media)
+            }
+            if (list != null) {
+                carouselViewPagerAdapter = CarouselViewPagerAdapter(view.context, list)
+                viewPager?.adapter = carouselViewPagerAdapter
+            } else {
+                Log.e("Carousel","no media file")
+            }
         }
 
     }
-
-   
-
 }

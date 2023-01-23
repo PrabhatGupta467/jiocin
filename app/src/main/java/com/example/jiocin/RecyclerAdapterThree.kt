@@ -1,10 +1,12 @@
 package com.example.jiocin
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
@@ -29,7 +31,8 @@ class RecyclerAdapterThree (val context : Context, val arrContactThree : ArrayLi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(context).load(arrContactThree[position].image).into(holder.image)
         holder.image.setOnClickListener {
-
+            val intent= Intent(context,MoreLikesHorizontal::class.java)
+            ContextCompat.startActivity(context, intent, null)
         }
     }
 }

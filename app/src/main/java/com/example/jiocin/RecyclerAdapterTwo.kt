@@ -32,6 +32,10 @@ import com.bumptech.glide.Glide
          Glide.with(context).load(arrContactTwo[position].image).into(holder.image)
          holder.image.setOnClickListener {
              val intent= Intent(context,MoreLikeVertical::class.java)
+             intent.putExtra("recmType",arrContactTwo[position].recmType)
+             intent.putExtra("mediaId",arrContactTwo[position].mediaId)
+             intent.putExtra("tittle",arrContactTwo[position].tittle)
+             intent.putExtra("description",arrContactTwo[position].des)
              ContextCompat.startActivity(context, intent, null)
          }
      }

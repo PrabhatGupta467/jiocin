@@ -34,6 +34,10 @@ class RecyclerAddapter(val context: Context, val arrContact: ArrayList<ContactMo
         //holder.image.setImageResource(arrContact[position].image)
         holder.image.setOnClickListener {
             val intent=Intent(context,MoreLikesHorizontal::class.java)
+            intent.putExtra("recmType",arrContact[position].recmType)
+            intent.putExtra("mediaId",arrContact[position].mediaId)
+            intent.putExtra("tittle",arrContact[position].tittle)
+            intent.putExtra("description",arrContact[position].dec)
             startActivity(context,intent,null)
         }
 

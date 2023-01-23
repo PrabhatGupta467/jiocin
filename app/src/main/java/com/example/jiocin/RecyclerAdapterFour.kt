@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
-class RecyclerAdapterFour (val context : Context, val arrContact : ArrayList<ModelFour>) : RecyclerView.Adapter<RecyclerAdapterFour.ViewHolder>() {
+class RecyclerAdapterFour (val context : Context, val arrContactFour : ArrayList<ModelFour>) : RecyclerView.Adapter<RecyclerAdapterFour.ViewHolder>() {
 
 
 
@@ -28,18 +28,22 @@ class RecyclerAdapterFour (val context : Context, val arrContact : ArrayList<Mod
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         //val temp : ContactModel=arrContact.get(position)
-        Glide.with(context).load(arrContact[position].image).into(holder.image)
-        holder.centerText.text=arrContact[position].dec
+        Glide.with(context).load(arrContactFour[position].image).into(holder.image)
+        holder.centerText.text=arrContactFour[position].centerText
 
         //holder.image.setImageResource(arrContact[position].image)
         holder.image.setOnClickListener {
             val intent= Intent(context,MoreLikesHorizontal::class.java)
+            intent.putExtra("recmType",arrContactFour[position].recmType)
+            intent.putExtra("mediaId",arrContactFour[position].mediaId)
+            intent.putExtra("tittle",arrContactFour[position].tittle)
+            intent.putExtra("description",arrContactFour[position].dec)
             ContextCompat.startActivity(context, intent, null)
         }
 
     }
 
     override fun getItemCount(): Int {
-        return arrContact.size
+        return arrContactFour.size
     }
 }

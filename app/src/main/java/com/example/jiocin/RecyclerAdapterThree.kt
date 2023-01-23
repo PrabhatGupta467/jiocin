@@ -32,6 +32,10 @@ class RecyclerAdapterThree (val context : Context, val arrContactThree : ArrayLi
         Glide.with(context).load(arrContactThree[position].image).into(holder.image)
         holder.image.setOnClickListener {
             val intent= Intent(context,MoreLikesHorizontal::class.java)
+            intent.putExtra("recmType",arrContactThree[position].recmType)
+            intent.putExtra("mediaId",arrContactThree[position].mediaId)
+            intent.putExtra("tittle",arrContactThree[position].tittle)
+            intent.putExtra("description",arrContactThree[position].dec)
             ContextCompat.startActivity(context, intent, null)
         }
     }

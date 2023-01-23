@@ -12,6 +12,7 @@
         app:cardCornerRadius="10dp"
         android:layout_height="match_parent">
         <ImageView
+            android:src="@drawable/shimer"
             android:id="@+id/imgX"
             android:layout_width="match_parent"
             android:scaleType="fitXY"

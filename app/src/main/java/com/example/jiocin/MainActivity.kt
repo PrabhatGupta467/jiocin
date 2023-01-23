@@ -39,8 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val container: ShimmerFrameLayout = findViewById(R.id.container)
-//        container.hideShimmer()
+
 
 
 
